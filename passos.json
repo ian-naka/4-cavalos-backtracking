@@ -1,0 +1,138 @@
+{
+  "titulo": "O Problema dos 4 Cavalos",
+  "totalPassos": 17,
+  "solucaoEmMovimentos": 16,
+  "passos": [
+    {
+      "indice": 0,
+      "estado": {"casa1": "B", "casa2": "V", "casa3": "B", "casa4": "V", "casa5": "V", "casa6": "V", "casa7": "P", "casa8": "V", "casa9": "P"},
+      "movimento": null,
+      "descricao": "Estado inicial do tabuleiro. O solver em C++ começa nesta configuração e explora os movimentos válidos usando backtracking com poda por melhor caminho e por profundidade.",
+      "analise": {"estadoAnterior": null, "casasOcupadas": [1, 3, 7, 9], "movimentosPossiveis": [], "movimentoEscolhido": null}
+    },
+    {
+      "indice": 1,
+      "estado": {"casa1": "V", "casa2": "V", "casa3": "B", "casa4": "V", "casa5": "V", "casa6": "B", "casa7": "P", "casa8": "V", "casa9": "P"},
+      "movimento": {"peca": "B", "de": 1, "para": 6},
+      "descricao": "Comparando os estados, a peça B saiu da casa 1 e foi para a casa 6. No estado anterior, as casas ocupadas eram [1, 3, 7, 9]. A peça B estava na casa 1 e podia tentar [6, 8]; dessas, [6, 8] estavam livres. O solver escolheu 6 e seguiu a busca em profundidade a partir desse novo estado.",
+      "analise": {"estadoAnterior": {"casa1": "B", "casa2": "V", "casa3": "B", "casa4": "V", "casa5": "V", "casa6": "V", "casa7": "P", "casa8": "V", "casa9": "P"}, "casasOcupadas": [1, 3, 7, 9], "movimentosPossiveis": [6, 8], "movimentoEscolhido": 6, "conexoesAnalisadas": [6, 8]}
+    },
+    {
+      "indice": 2,
+      "estado": {"casa1": "V", "casa2": "V", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "B", "casa7": "P", "casa8": "B", "casa9": "P"},
+      "movimento": {"peca": "B", "de": 3, "para": 8},
+      "descricao": "Comparando os estados, a peça B saiu da casa 3 e foi para a casa 8. No estado anterior, as casas ocupadas eram [3, 6, 7, 9]. A peça B estava na casa 3 e podia tentar [4, 8]; dessas, [4, 8] estavam livres. O solver escolheu 8 e seguiu a busca em profundidade a partir desse novo estado.",
+      "analise": {"estadoAnterior": {"casa1": "V", "casa2": "V", "casa3": "B", "casa4": "V", "casa5": "V", "casa6": "B", "casa7": "P", "casa8": "V", "casa9": "P"}, "casasOcupadas": [3, 6, 7, 9], "movimentosPossiveis": [4, 8], "movimentoEscolhido": 8, "conexoesAnalisadas": [4, 8]}
+    },
+    {
+      "indice": 3,
+      "estado": {"casa1": "V", "casa2": "P", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "B", "casa7": "V", "casa8": "B", "casa9": "P"},
+      "movimento": {"peca": "P", "de": 7, "para": 2},
+      "descricao": "Comparando os estados, a peça P saiu da casa 7 e foi para a casa 2. No estado anterior, as casas ocupadas eram [6, 7, 8, 9]. A peça P estava na casa 7 e podia tentar [2, 6]; dessas, [2] estavam livres. O solver escolheu 2 e seguiu a busca em profundidade a partir desse novo estado.",
+      "analise": {"estadoAnterior": {"casa1": "V", "casa2": "V", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "B", "casa7": "P", "casa8": "B", "casa9": "P"}, "casasOcupadas": [6, 7, 8, 9], "movimentosPossiveis": [2], "movimentoEscolhido": 2, "conexoesAnalisadas": [2, 6]}
+    },
+    {
+      "indice": 4,
+      "estado": {"casa1": "V", "casa2": "P", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "V", "casa7": "B", "casa8": "B", "casa9": "P"},
+      "movimento": {"peca": "B", "de": 6, "para": 7},
+      "descricao": "Comparando os estados, a peça B saiu da casa 6 e foi para a casa 7. No estado anterior, as casas ocupadas eram [2, 6, 8, 9]. A peça B estava na casa 6 e podia tentar [1, 7]; dessas, [1, 7] estavam livres. O solver escolheu 7 e seguiu a busca em profundidade a partir desse novo estado.",
+      "analise": {"estadoAnterior": {"casa1": "V", "casa2": "P", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "B", "casa7": "V", "casa8": "B", "casa9": "P"}, "casasOcupadas": [2, 6, 8, 9], "movimentosPossiveis": [1, 7], "movimentoEscolhido": 7, "conexoesAnalisadas": [1, 7]}
+    },
+    {
+      "indice": 5,
+      "estado": {"casa1": "B", "casa2": "P", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "V", "casa7": "B", "casa8": "V", "casa9": "P"},
+      "movimento": {"peca": "B", "de": 8, "para": 1},
+      "descricao": "Comparando os estados, a peça B saiu da casa 8 e foi para a casa 1. No estado anterior, as casas ocupadas eram [2, 7, 8, 9]. A peça B estava na casa 8 e podia tentar [1, 3]; dessas, [1, 3] estavam livres. O solver escolheu 1 e seguiu a busca em profundidade a partir desse novo estado.",
+      "analise": {"estadoAnterior": {"casa1": "V", "casa2": "P", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "V", "casa7": "B", "casa8": "B", "casa9": "P"}, "casasOcupadas": [2, 7, 8, 9], "movimentosPossiveis": [1, 3], "movimentoEscolhido": 1, "conexoesAnalisadas": [1, 3]}
+    },
+    {
+      "indice": 6,
+      "estado": {"casa1": "V", "casa2": "P", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "B", "casa7": "B", "casa8": "V", "casa9": "P"},
+      "movimento": {"peca": "B", "de": 1, "para": 6},
+      "descricao": "Comparando os estados, a peça B saiu da casa 1 e foi para a casa 6. No estado anterior, as casas ocupadas eram [1, 2, 7, 9]. A peça B estava na casa 1 e podia tentar [6, 8]; dessas, [6, 8] estavam livres. O solver escolheu 6 e seguiu a busca em profundidade a partir desse novo estado.",
+      "analise": {"estadoAnterior": {"casa1": "B", "casa2": "P", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "V", "casa7": "B", "casa8": "V", "casa9": "P"}, "casasOcupadas": [1, 2, 7, 9], "movimentosPossiveis": [6, 8], "movimentoEscolhido": 6, "conexoesAnalisadas": [6, 8]}
+    },
+    {
+      "indice": 7,
+      "estado": {"casa1": "V", "casa2": "P", "casa3": "V", "casa4": "P", "casa5": "V", "casa6": "B", "casa7": "B", "casa8": "V", "casa9": "V"},
+      "movimento": {"peca": "P", "de": 9, "para": 4},
+      "descricao": "Comparando os estados, a peça P saiu da casa 9 e foi para a casa 4. No estado anterior, as casas ocupadas eram [2, 6, 7, 9]. A peça P estava na casa 9 e podia tentar [2, 4]; dessas, [4] estavam livres. O solver escolheu 4 e seguiu a busca em profundidade a partir desse novo estado.",
+      "analise": {"estadoAnterior": {"casa1": "V", "casa2": "P", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "B", "casa7": "B", "casa8": "V", "casa9": "P"}, "casasOcupadas": [2, 6, 7, 9], "movimentosPossiveis": [4], "movimentoEscolhido": 4, "conexoesAnalisadas": [2, 4]}
+    },
+    {
+      "indice": 8,
+      "estado": {"casa1": "V", "casa2": "V", "casa3": "V", "casa4": "P", "casa5": "V", "casa6": "B", "casa7": "B", "casa8": "V", "casa9": "P"},
+      "movimento": {"peca": "P", "de": 2, "para": 9},
+      "descricao": "Comparando os estados, a peça P saiu da casa 2 e foi para a casa 9. No estado anterior, as casas ocupadas eram [2, 4, 6, 7]. A peça P estava na casa 2 e podia tentar [7, 9]; dessas, [9] estavam livres. O solver escolheu 9 e seguiu a busca em profundidade a partir desse novo estado.",
+      "analise": {"estadoAnterior": {"casa1": "V", "casa2": "P", "casa3": "V", "casa4": "P", "casa5": "V", "casa6": "B", "casa7": "B", "casa8": "V", "casa9": "V"}, "casasOcupadas": [2, 4, 6, 7], "movimentosPossiveis": [9], "movimentoEscolhido": 9, "conexoesAnalisadas": [7, 9]}
+    },
+    {
+      "indice": 9,
+      "estado": {"casa1": "V", "casa2": "V", "casa3": "P", "casa4": "V", "casa5": "V", "casa6": "B", "casa7": "B", "casa8": "V", "casa9": "P"},
+      "movimento": {"peca": "P", "de": 4, "para": 3},
+      "descricao": "Comparando os estados, a peça P saiu da casa 4 e foi para a casa 3. No estado anterior, as casas ocupadas eram [4, 6, 7, 9]. A peça P estava na casa 4 e podia tentar [3, 9]; dessas, [3] estavam livres. O solver escolheu 3 e seguiu a busca em profundidade a partir desse novo estado.",
+      "analise": {"estadoAnterior": {"casa1": "V", "casa2": "V", "casa3": "V", "casa4": "P", "casa5": "V", "casa6": "B", "casa7": "B", "casa8": "V", "casa9": "P"}, "casasOcupadas": [4, 6, 7, 9], "movimentosPossiveis": [3], "movimentoEscolhido": 3, "conexoesAnalisadas": [3, 9]}
+    },
+    {
+      "indice": 10,
+      "estado": {"casa1": "V", "casa2": "V", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "B", "casa7": "B", "casa8": "P", "casa9": "P"},
+      "movimento": {"peca": "P", "de": 3, "para": 8},
+      "descricao": "Comparando os estados, a peça P saiu da casa 3 e foi para a casa 8. No estado anterior, as casas ocupadas eram [3, 6, 7, 9]. A peça P estava na casa 3 e podia tentar [4, 8]; dessas, [4, 8] estavam livres. O solver escolheu 8 e seguiu a busca em profundidade a partir desse novo estado.",
+      "analise": {"estadoAnterior": {"casa1": "V", "casa2": "V", "casa3": "P", "casa4": "V", "casa5": "V", "casa6": "B", "casa7": "B", "casa8": "V", "casa9": "P"}, "casasOcupadas": [3, 6, 7, 9], "movimentosPossiveis": [4, 8], "movimentoEscolhido": 8, "conexoesAnalisadas": [4, 8]}
+    },
+    {
+      "indice": 11,
+      "estado": {"casa1": "V", "casa2": "B", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "B", "casa7": "V", "casa8": "P", "casa9": "P"},
+      "movimento": {"peca": "B", "de": 7, "para": 2},
+      "descricao": "Comparando os estados, a peça B saiu da casa 7 e foi para a casa 2. No estado anterior, as casas ocupadas eram [6, 7, 8, 9]. A peça B estava na casa 7 e podia tentar [2, 6]; dessas, [2] estavam livres. O solver escolheu 2 e seguiu a busca em profundidade a partir desse novo estado.",
+      "analise": {"estadoAnterior": {"casa1": "V", "casa2": "V", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "B", "casa7": "B", "casa8": "P", "casa9": "P"}, "casasOcupadas": [6, 7, 8, 9], "movimentosPossiveis": [2], "movimentoEscolhido": 2, "conexoesAnalisadas": [2, 6]}
+    },
+    {
+      "indice": 12,
+      "estado": {"casa1": "V", "casa2": "B", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "V", "casa7": "B", "casa8": "P", "casa9": "P"},
+      "movimento": {"peca": "B", "de": 6, "para": 7},
+      "descricao": "Comparando os estados, a peça B saiu da casa 6 e foi para a casa 7. No estado anterior, as casas ocupadas eram [2, 6, 8, 9]. A peça B estava na casa 6 e podia tentar [1, 7]; dessas, [1, 7] estavam livres. O solver escolheu 7 e seguiu a busca em profundidade a partir desse novo estado.",
+      "analise": {"estadoAnterior": {"casa1": "V", "casa2": "B", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "B", "casa7": "V", "casa8": "P", "casa9": "P"}, "casasOcupadas": [2, 6, 8, 9], "movimentosPossiveis": [1, 7], "movimentoEscolhido": 7, "conexoesAnalisadas": [1, 7]}
+    },
+    {
+      "indice": 13,
+      "estado": {"casa1": "P", "casa2": "B", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "V", "casa7": "B", "casa8": "V", "casa9": "P"},
+      "movimento": {"peca": "P", "de": 8, "para": 1},
+      "descricao": "Comparando os estados, a peça P saiu da casa 8 e foi para a casa 1. No estado anterior, as casas ocupadas eram [2, 7, 8, 9]. A peça P estava na casa 8 e podia tentar [1, 3]; dessas, [1, 3] estavam livres. O solver escolheu 1 e seguiu a busca em profundidade a partir desse novo estado.",
+      "analise": {"estadoAnterior": {"casa1": "V", "casa2": "B", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "V", "casa7": "B", "casa8": "P", "casa9": "P"}, "casasOcupadas": [2, 7, 8, 9], "movimentosPossiveis": [1, 3], "movimentoEscolhido": 1, "conexoesAnalisadas": [1, 3]}
+    },
+    {
+      "indice": 14,
+      "estado": {"casa1": "P", "casa2": "B", "casa3": "V", "casa4": "P", "casa5": "V", "casa6": "V", "casa7": "B", "casa8": "V", "casa9": "V"},
+      "movimento": {"peca": "P", "de": 9, "para": 4},
+      "descricao": "Comparando os estados, a peça P saiu da casa 9 e foi para a casa 4. No estado anterior, as casas ocupadas eram [1, 2, 7, 9]. A peça P estava na casa 9 e podia tentar [2, 4]; dessas, [4] estavam livres. O solver escolheu 4 e seguiu a busca em profundidade a partir desse novo estado.",
+      "analise": {"estadoAnterior": {"casa1": "P", "casa2": "B", "casa3": "V", "casa4": "V", "casa5": "V", "casa6": "V", "casa7": "B", "casa8": "V", "casa9": "P"}, "casasOcupadas": [1, 2, 7, 9], "movimentosPossiveis": [4], "movimentoEscolhido": 4, "conexoesAnalisadas": [2, 4]}
+    },
+    {
+      "indice": 15,
+      "estado": {"casa1": "P", "casa2": "V", "casa3": "V", "casa4": "P", "casa5": "V", "casa6": "V", "casa7": "B", "casa8": "V", "casa9": "B"},
+      "movimento": {"peca": "B", "de": 2, "para": 9},
+      "descricao": "Comparando os estados, a peça B saiu da casa 2 e foi para a casa 9. No estado anterior, as casas ocupadas eram [1, 2, 4, 7]. A peça B estava na casa 2 e podia tentar [7, 9]; dessas, [9] estavam livres. O solver escolheu 9 e seguiu a busca em profundidade a partir desse novo estado.",
+      "analise": {"estadoAnterior": {"casa1": "P", "casa2": "B", "casa3": "V", "casa4": "P", "casa5": "V", "casa6": "V", "casa7": "B", "casa8": "V", "casa9": "V"}, "casasOcupadas": [1, 2, 4, 7], "movimentosPossiveis": [9], "movimentoEscolhido": 9, "conexoesAnalisadas": [7, 9]}
+    },
+    {
+      "indice": 16,
+      "estado": {"casa1": "P", "casa2": "V", "casa3": "P", "casa4": "V", "casa5": "V", "casa6": "V", "casa7": "B", "casa8": "V", "casa9": "B"},
+      "movimento": {"peca": "P", "de": 4, "para": 3},
+      "descricao": "Comparando os estados, a peça P saiu da casa 4 e foi para a casa 3. No estado anterior, as casas ocupadas eram [1, 4, 7, 9]. A peça P estava na casa 4 e podia tentar [3, 9]; dessas, [3] estavam livres. O solver escolheu 3 e seguiu a busca em profundidade a partir desse novo estado. Neste ponto, o tabuleiro atingiu a configuração final, então o solver encontrou a solução.",
+      "analise": {"estadoAnterior": {"casa1": "P", "casa2": "V", "casa3": "V", "casa4": "P", "casa5": "V", "casa6": "V", "casa7": "B", "casa8": "V", "casa9": "B"}, "casasOcupadas": [1, 4, 7, 9], "movimentosPossiveis": [3], "movimentoEscolhido": 3, "conexoesAnalisadas": [3, 9]}
+    }
+  ],
+  "conexoes": {
+    "1": [6, 8],
+    "2": [7, 9],
+    "3": [4, 8],
+    "4": [3, 9],
+    "5": [],
+    "6": [1, 7],
+    "7": [2, 6],
+    "8": [1, 3],
+    "9": [2, 4]
+  },
+  "codigoFonte": "#include <iostream>\n#include <map>\n#include <string>\n#include <vector>\n\nusing namespace std;\n\nstring boardToString(const vector<char>& board) {\n    return string(board.begin(), board.end());\n}\n\nvoid backtracking(\n    const vector<char>& tabuleiroAtual,\n    const vector<char>& tabuleiroFinal,\n    const vector<vector<int>>& adj,\n    vector<vector<char>>& caminhoAtual,\n    vector<vector<char>>& melhorCaminho,\n    map<vector<char>, int>& melhoresDistancias\n) {\n    if (!melhorCaminho.empty() && caminhoAtual.size() >= melhorCaminho.size()) {\n        return;\n    }\n\n    if (caminhoAtual.size() > 20) {\n        return;\n    }\n\n    if (tabuleiroAtual == tabuleiroFinal) {\n        melhorCaminho = caminhoAtual;\n        return;\n    }\n\n    for (int i = 0; i < 9; ++i) {\n        if (tabuleiroAtual[i] != 'V') {\n            for (int vizinho : adj[i]) {\n                if (tabuleiroAtual[vizinho] == 'V') {\n                    vector<char> novoEstado = tabuleiroAtual;\n                    swap(novoEstado[i], novoEstado[vizinho]);\n\n                    int novaDistancia = static_cast<int>(caminhoAtual.size()) + 1;\n\n                    if (melhoresDistancias.find(novoEstado) == melhoresDistancias.end() ||\n                        novaDistancia < melhoresDistancias[novoEstado]) {\n                        melhoresDistancias[novoEstado] = novaDistancia;\n                        caminhoAtual.push_back(novoEstado);\n                        backtracking(\n                            novoEstado,\n                            tabuleiroFinal,\n                            adj,\n                            caminhoAtual,\n                            melhorCaminho,\n                            melhoresDistancias\n                        );\n                        caminhoAtual.pop_back();\n                    }\n                }\n            }\n        }\n    }\n}\n\nint main() {\n    vector<char> tabuleiroInicio = {\n        'B', 'V', 'B',\n        'V', 'V', 'V',\n        'P', 'V', 'P'\n    };\n\n    vector<char> tabuleiroFinal = {\n        'P', 'V', 'P',\n        'V', 'V', 'V',\n        'B', 'V', 'B'\n    };\n\n    vector<vector<int>> adj = {\n        {5, 7}, {6, 8}, {3, 7}, {2, 8}, {}, {0, 6}, {1, 5}, {0, 2}, {1, 3}\n    };\n\n    vector<vector<char>> caminhoAtual;\n    vector<vector<char>> melhorCaminho;\n    map<vector<char>, int> melhoresDistancias;\n\n    caminhoAtual.push_back(tabuleiroInicio);\n    melhoresDistancias[tabuleiroInicio] = 1;\n\n    backtracking(tabuleiroInicio, tabuleiroFinal, adj, caminhoAtual, melhorCaminho, melhoresDistancias);\n\n    if (melhorCaminho.empty()) {\n        cout << \"{\\\"success\\\":false}\";\n        return 0;\n    }\n\n    cout << \"{\\\"success\\\":true,\\\"steps\\\":[\";\n    for (size_t i = 0; i < melhorCaminho.size(); ++i) {\n        if (i > 0) {\n            cout << \",\";\n        }\n        cout << \"\\\"\" << boardToString(melhorCaminho[i]) << \"\\\"\";\n    }\n    cout << \"]}\";\n\n    return 0;\n}\n"
+}

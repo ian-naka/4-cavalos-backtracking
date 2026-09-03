@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizador de Backtracking</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    h1 {
+      margin: 0 0 36px;
+      text-align: center;
+      font-size: 32px;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: minmax(260px, 1fr) 300px minmax(260px, 1fr);
+      gap: 48px;
+      justify-content: center;
+      align-items: start;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      border: 2px solid #c85a80;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background: #fff;
+      margin: 0 auto;
+    }
+
+    .cell {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100px;
+      height: 100px;
+      font-size: 64px;
+      user-select: none;
+      transition: background-color 0.2s, outline 0.2s;
+    }
+
+    .cell.white-bg {
+      background-color: #ffffff;
+    }
+
+    .cell.pink-bg {
+      background-color: #e590af;
+    }
+
+    .cell.blocked {
+      color: #777;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .cell.active {
+      outline: 5px solid #4a90e2;
+      outline-offset: -5px;
+      z-index: 1;
+    }
+
+    .cell-label {
+      position: absolute;
+      top: 6px;
+      left: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.55);
+    }
+
+    .piece {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .piece-icon {
+      line-height: 1;
+    }
+
+    .piece-name {
+      font-size: 14px;
+      text-transform: lowercase;
+      line-height: 1;
+    }
+
+    .piece.white {
+      color: #ffffff;
+      text-shadow: -1px -1px 0 #777, 1px -1px 0 #777, -1px 1px 0 #777, 1px 1px 0 #777;
+    }
+
+    .piece.black {
+      color: #000000;
+    }
+
+    .side {
+      padding-top: 0;
+      text-align: left;
+      align-self: start;
+    }
+
+    section {
+      align-self: start;
+    }
+
+    .side.right {
+      font-size: 15px;
+      padding-top: 0;
+    }
+
+    .side.right h2 {
+      margin-top: 8px;
+    }
+
+    .side h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .description,
+    .positions,
+    .legend {
+      color: #666;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .analysis {
+      color: #666;
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+
+    .step-index {
+      display: inline-block;
+      margin-left: 8px;
+      color: #c85a80;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 24px 0;
+      width: 300px;
+    }
+
+    button {
+      border: 0;
+      padding: 10px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #c85a80;
+      color: #fff;
+      border-radius: 6px;
+    }
+
+    button.secondary {
+      background: #d9d9d9;
+      color: #333;
+    }
+
+    #nextBtn {
+      background: #e590af;
+    }
+
+    #resetBtn {
+      grid-column: 1 / -1;
+    }
+
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 860px) {
+      .app {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 32px;
+      }
+
+      .side {
+        width: min(100%, 520px);
+        order: -1;
+      }
+
+      .side.right {
+        order: 0;
+      }
+    }
+
+    body.print-mode .controls {
+      display: none;
+    }
+
+    body.print-mode .page {
+      max-width: 1200px;
+      padding-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>O Problema dos 4 Cavalos</h1>
+
+    <main class="app">
+      <aside class="side">
+        <h2>Passo atual <span class="step-index" id="stepIndex">0</span></h2>
+
+        <p class="description" id="description">Carregando...</p>
+
+        <div class="positions" id="positions"></div>
+
+        <div class="legend">
+          Cavalo branco = peça `B`<br>
+          Cavalo preto = peça `P`<br>
+          `V` = casa vazia
+        </div>
+      </aside>
+
+      <section>
+        <div class="board" id="board"></div>
+        <div class="controls">
+          <button class="secondary" id="prevBtn">Passo anterior</button>
+          <button id="nextBtn">Próximo passo</button>
+          <button class="secondary" id="resetBtn">Reiniciar</button>
+        </div>
+      </section>
+
+      <aside class="side right">
+        <h2>Análise do algoritmo</h2>
+        <div class="analysis" id="analysis"></div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    const boardOrder = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const boardEl = document.getElementById('board');
+    const stepIndexEl = document.getElementById('stepIndex');
+    const descriptionEl = document.getElementById('description');
+    const positionsEl = document.getElementById('positions');
+    const analysisEl = document.getElementById('analysis');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const searchParams = new URLSearchParams(window.location.search);
+    const requestedStep = Number(searchParams.get('step'));
+    const isPrintMode = searchParams.get('print') === '1';
+
+    let passos = [];
+    let passoAtual = 0;
+
+    if (isPrintMode) {
+      document.body.classList.add('print-mode');
+    }
+
+    function renderBoardBase() {
+      boardEl.innerHTML = '';
+
+      boardOrder.forEach((casa) => {
+        const cell = document.createElement('div');
+        const row = Math.floor((casa - 1) / 3);
+        const col = (casa - 1) % 3;
+        const backgroundClass = (row + col) % 2 === 0 ? 'white-bg' : 'pink-bg';
+        cell.className = `cell ${backgroundClass}`;
+        cell.dataset.casa = casa;
+
+        if (casa === 5) {
+          cell.classList.add('blocked');
+        }
+
+        cell.innerHTML = '<div class="cell-label">' + casa + '</div>';
+
+        boardEl.appendChild(cell);
+      });
+    }
+
+    function pieceChip(valor) {
+      const chip = document.createElement('div');
+      chip.className = `piece ${valor === 'B' ? 'white' : 'black'}`;
+
+      const icon = document.createElement('div');
+      icon.className = 'piece-icon';
+      icon.textContent = valor === 'B' ? '♘' : '♞';
+
+      const label = document.createElement('div');
+      label.className = 'piece-name';
+      label.textContent = valor === 'B' ? 'branco' : 'preto';
+
+      chip.appendChild(icon);
+      chip.appendChild(label);
+      chip.title = valor;
+      return chip;
+    }
+
+    function atualizarControles() {
+      prevBtn.disabled = passoAtual === 0;
+      nextBtn.disabled = passoAtual === passos.length - 1;
+    }
+
+    function renderAnalise(passo) {
+      if (!passo.analise || !passo.movimento) {
+        analysisEl.textContent = 'Estado inicial: o algoritmo ainda não comparou um estado anterior.';
+        return;
+      }
+
+      const anterior = passo.analise.estadoAnterior;
+      analysisEl.textContent = [
+        `Estado anterior: ${Object.entries(anterior).map(([casa, valor]) => `${casa}=${valor}`).join(', ')}`,
+        `Casas ocupadas: ${passo.analise.casasOcupadas.join(', ')}`,
+        `Peça ${passo.movimento.peca} na casa ${passo.movimento.de}`,
+        `Conexões analisadas: ${passo.analise.conexoesAnalisadas.join(', ')}`,
+        `Casas livres possíveis: ${passo.analise.movimentosPossiveis.join(', ')}`,
+        `Escolha do algoritmo: mover para a casa ${passo.analise.movimentoEscolhido}`
+      ].join('\n');
+    }
+
+    function renderStep() {
+      const passo = passos[passoAtual];
+      renderBoardBase();
+
+      document.querySelectorAll('.cell').forEach((cell) => {
+        const casa = Number(cell.dataset.casa);
+        if (passo.movimento && (casa === passo.movimento.de || casa === passo.movimento.para)) {
+          cell.classList.add('active');
+        }
+      });
+
+      Object.entries(passo.estado).forEach(([casa, valor]) => {
+        const numeroCasa = Number(casa.replace('casa', ''));
+        const cell = document.querySelector(`.cell[data-casa="${numeroCasa}"]`);
+        if (cell && valor !== 'V') {
+          cell.appendChild(pieceChip(valor));
+        }
+      });
+
+      stepIndexEl.textContent = passo.indice;
+      descriptionEl.textContent = passo.descricao;
+      positionsEl.innerHTML = [
+        `Linha 1: ${passo.estado.casa1} ${passo.estado.casa2} ${passo.estado.casa3}`,
+        `Linha 2: ${passo.estado.casa4} ${passo.estado.casa5} ${passo.estado.casa6}`,
+        `Linha 3: ${passo.estado.casa7} ${passo.estado.casa8} ${passo.estado.casa9}`
+      ].join('<br>');
+      renderAnalise(passo);
+
+      atualizarControles();
+    }
+
+    async function iniciar() {
+      const response = await fetch('/api/passos');
+      const data = await response.json();
+      passos = data.passos;
+      if (Number.isInteger(requestedStep) && requestedStep >= 0 && requestedStep < passos.length) {
+        passoAtual = requestedStep;
+      }
+      renderStep();
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (passoAtual > 0) {
+        passoAtual -= 1;
+        renderStep();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (passoAtual < passos.length - 1) {
+        passoAtual += 1;
+        renderStep();
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      passoAtual = 0;
+      renderStep();
+    });
+
+    iniciar().catch(() => {
+      descriptionEl.textContent = 'Não foi possível carregar os passos da solução.';
+    });
+  </script>
+</body>
+</html>
