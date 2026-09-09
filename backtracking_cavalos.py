@@ -1,44 +1,126 @@
 import json
-import subprocess
 from pathlib import Path
 
+import backtracking as bt
 
 ROOT = Path(__file__).resolve().parent
-CPP_SOURCE = ROOT / "solver.cpp"
-CPP_BINARY = ROOT / "solver"
+PASSOS_JSON = ROOT / "passos.json"
+CODIGO_FONTE = (ROOT / "backtracking.py").read_text(encoding="utf-8")
+
+# Casa -> [próxima casa] (apenas sentido horário: um único destino por origem)
+ADJ = {casa: [] for casa in range(1, 10)}
+for origem, destino in bt.CONEXAO_HORARIA.items():
+    ADJ[origem].append(destino)
 
 
-def executar_solver():
-    subprocess.run(
-        ["g++", "-std=c++17", str(CPP_SOURCE), "-o", str(CPP_BINARY)],
-        check=True,
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
+def cor(peca_indice):
+    return "B" if peca_indice < 2 else "P"
+
+
+def estado_para_letras(estado):
+    tabuleiro = {casa: "V" for casa in range(1, 10)}
+    for indice, casa in enumerate(estado):
+        tabuleiro[casa] = cor(indice)
+    return {f"casa{casa}": tabuleiro[casa] for casa in range(1, 10)}
+
+
+def gerar_passos():
+    if not bt.sucesso:
+        raise RuntimeError(
+            f"Nenhuma solução encontrada dentro do limite p={bt.limite_profundidade} "
+            "com a regra apenas horária."
+        )
+
+    caminho = bt.caminho_estados
+    regras = bt.caminho_regras
+    passos = []
+
+    for indice, estado in enumerate(caminho):
+        estado_formatado = estado_para_letras(estado)
+
+        if indice == 0:
+            movimento = None
+            descricao = (
+                "Estado inicial do tabuleiro. Para cada peça, o algoritmo só considera o único "
+                "movimento permitido no sentido horário do ciclo (limite de profundidade "
+                f"p = {bt.limite_profundidade}), evitando revisitar estados do próprio caminho."
+            )
+            analise = {
+                "estadoAnterior": None,
+                "casasOcupadas": sorted(estado),
+                "movimentosPossiveis": [],
+                "movimentoEscolhido": None,
+            }
+        else:
+            estado_anterior = caminho[indice - 1]
+            peca_indice = next(i for i in range(4) if estado_anterior[i] != estado[i])
+            origem = estado_anterior[peca_indice]
+            destino = estado[peca_indice]
+            peca = cor(peca_indice)
+            casas_ocupadas = sorted(estado_anterior)
+            conexoes_disponiveis = ADJ[origem]
+            movimentos_possiveis = [casa for casa in conexoes_disponiveis if casa not in estado_anterior]
+
+            movimento = {"peca": peca, "de": origem, "para": destino}
+
+            descricao = (
+                f"{regras[indice]}. No estado anterior, as casas ocupadas eram {casas_ocupadas}. "
+                "O algoritmo aplicou esse movimento e seguiu a busca a partir desse novo estado."
+            )
+
+            analise = {
+                "estadoAnterior": estado_para_letras(estado_anterior),
+                "casasOcupadas": casas_ocupadas,
+                "movimentosPossiveis": movimentos_possiveis,
+                "movimentoEscolhido": destino,
+                "conexoesAnalisadas": conexoes_disponiveis,
+            }
+
+            if indice == len(caminho) - 1:
+                descricao += (
+                    " Neste ponto, o tabuleiro atingiu a configuração final, então o algoritmo "
+                    "encontrou a solução."
+                )
+
+        passos.append({
+            "indice": indice,
+            "estado": estado_formatado,
+            "movimento": movimento,
+            "descricao": descricao,
+            "analise": analise,
+        })
+
+    return passos
+
+
+def gerar_passos_json():
+    passos = gerar_passos()
+
+    return {
+        "titulo": "Visualizador de Backtracking do Tabuleiro 3x3",
+        "totalPassos": len(passos),
+        "solucaoEmMovimentos": len(passos) - 1,
+        "voltasBacktrack": bt.total_retrocessos,
+        "totalImpasses": bt.total_impasses,
+        "passos": passos,
+        "conexoes": {str(origem): destinos for origem, destinos in ADJ.items()},
+        "codigoFonte": CODIGO_FONTE,
+    }
+
+
+if __name__ == "__main__":
+    dados = gerar_passos_json()
+
+    print(f"Solução encontrada em {dados['solucaoEmMovimentos']} passos!")
+    print(f"Total de retrocessos: {dados['voltasBacktrack']} | Total de impasses: {dados['totalImpasses']}\n")
+    for passo in dados["passos"]:
+        print(f"Passo {passo['indice']}:")
+        for linha in ((1, 2, 3), (4, 5, 6), (7, 8, 9)):
+            print(" ".join(passo["estado"][f"casa{c}"] for c in linha))
+        print("------")
+
+    PASSOS_JSON.write_text(
+        json.dumps(dados, ensure_ascii=False, indent=2),
+        encoding="utf-8",
     )
-    resultado = subprocess.run(
-        [str(CPP_BINARY)],
-        check=True,
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-    )
-    return json.loads(resultado.stdout)
-
-
-def imprimir_tabuleiro(estado):
-    for linha in range(0, 9, 3):
-        print(" ".join(estado[linha:linha + 3]))
-    print("------")
-
-
-payload = executar_solver()
-
-if payload.get("success"):
-    passos = payload["steps"]
-    print(f"Solução encontrada em {len(passos) - 1} passos!\n")
-    for indice, estado in enumerate(passos):
-        print(f"Passo {indice}:")
-        imprimir_tabuleiro(list(estado))
-else:
-    print("Nenhuma solução possível.")
+    print(f"\npassos.json atualizado em {PASSOS_JSON}")

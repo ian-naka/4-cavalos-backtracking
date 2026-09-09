@@ -23,9 +23,16 @@
     }
 
     h1 {
-      margin: 0 0 36px;
+      margin: 0 0 12px;
       text-align: center;
       font-size: 32px;
+    }
+
+    .stats {
+      margin: 0 0 36px;
+      text-align: center;
+      color: #666;
+      font-size: 15px;
     }
 
     .app {
@@ -221,6 +228,7 @@
 <body>
   <div class="page">
     <h1 id="pageTitle">O Problema dos 4 Cavalos</h1>
+    <p class="stats" id="stats"></p>
 
     <main class="app">
       <aside class="side">
@@ -257,6 +265,7 @@
     const boardOrder = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     const boardEl = document.getElementById('board');
     const pageTitleEl = document.getElementById('pageTitle');
+    const statsEl = document.getElementById('stats');
     const stepIndexEl = document.getElementById('stepIndex');
     const descriptionEl = document.getElementById('description');
     const positionsEl = document.getElementById('positions');
@@ -366,6 +375,7 @@
       const data = await response.json();
       passos = data.passos;
       pageTitleEl.textContent = data.titulo || 'O Problema dos 4 Cavalos';
+      statsEl.textContent = `Solução em ${data.solucaoEmMovimentos} movimentos · ${data.totalImpasses} impasses · ${data.voltasBacktrack} retrocessos (sentido horário)`;
 
       if (Number.isInteger(requestedStep) && requestedStep >= 0 && requestedStep < passos.length) {
         passoAtual = requestedStep;
