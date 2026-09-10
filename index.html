@@ -376,7 +376,7 @@
       const data = await response.json();
       passos = data.passos;
       pageTitleEl.textContent = data.titulo || 'O Problema dos 4 Cavalos';
-      statsEl.textContent = `Solução em ${data.solucaoEmMovimentos} movimentos · ${data.totalImpasses} impasses · ${data.voltasBacktrack} retrocessos (sentido horário)`;
+      statsEl.textContent = `Solução em ${data.solucaoEmMovimentos} movimentos`;
 
       if (Number.isInteger(requestedStep) && requestedStep >= 0 && requestedStep < passos.length) {
         passoAtual = requestedStep;
