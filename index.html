@@ -223,6 +223,101 @@
         order: 0;
       }
     }
+
+    .stacks {
+      margin-top: 48px;
+    }
+
+    .stacks h2 {
+      text-align: center;
+      font-size: 22px;
+      margin: 0 0 6px;
+    }
+
+    .stacks .stacks-sub {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      margin: 0 0 24px;
+    }
+
+    .stacks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .stack-col h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+    }
+
+    .stack-col code {
+      background: #ece2e7;
+      color: #c85a80;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .stack-col .stack-hint {
+      color: #666;
+      font-size: 13px;
+      margin: 4px 0 12px;
+    }
+
+    .stack-list {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 8px;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #d9d9d9;
+      border-radius: 8px;
+    }
+
+    .stack-item {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      background: #f7f7f7;
+      border: 1px solid #e5e5e5;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .stack-item .idx {
+      flex: none;
+      font-weight: 700;
+      color: #999;
+      font-size: 12px;
+      min-width: 18px;
+      text-align: right;
+    }
+
+    .stack-item .val {
+      color: #333;
+      font-family: "Courier New", monospace;
+    }
+
+    .stack-item.top {
+      background: #fbe9f0;
+      border-color: #c85a80;
+      outline: 2px solid #e590af;
+      outline-offset: -1px;
+    }
+
+    .stack-item.top .idx {
+      color: #c85a80;
+    }
+
+    @media (max-width: 860px) {
+      .stacks-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -259,6 +354,23 @@
         <div class="analysis" id="analysis"></div>
       </aside>
     </main>
+
+    <section class="stacks">
+      <h2>As duas pilhas do algoritmo</h2>
+      <p class="stacks-sub">Conteúdo real de <code>pilha_posicoes_do_caminho</code> e <code>pilha_movimentos_do_caminho</code> logo após este passo — o topo é o item mais recente.</p>
+      <div class="stacks-grid">
+        <div class="stack-col">
+          <h3><code>pilha_posicoes_do_caminho</code></h3>
+          <p class="stack-hint">cada item é <code>[B1, B2, P1, P2]</code>: a casa de cada peça naquele passo</p>
+          <div class="stack-list" id="stackPosicoes"></div>
+        </div>
+        <div class="stack-col">
+          <h3><code>pilha_movimentos_do_caminho</code></h3>
+          <p class="stack-hint">a jogada que gerou cada posição empilhada ao lado</p>
+          <div class="stack-list" id="stackMovimentos"></div>
+        </div>
+      </div>
+    </section>
   </div>
 
   <script>
@@ -273,6 +385,8 @@
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const resetBtn = document.getElementById('resetBtn');
+    const stackPosicoesEl = document.getElementById('stackPosicoes');
+    const stackMovimentosEl = document.getElementById('stackMovimentos');
     const searchParams = new URLSearchParams(window.location.search);
     const requestedStep = Number(searchParams.get('step'));
 
@@ -339,6 +453,22 @@
       ].join('\n');
     }
 
+    function renderPilhas(passo) {
+      const posicoes = passo.pilhaPosicoesDoCaminho || [];
+      const movimentos = passo.pilhaMovimentosDoCaminho || [];
+
+      stackPosicoesEl.innerHTML = posicoes.map((p, i) => {
+        const topClass = i === posicoes.length - 1 ? ' top' : '';
+        const valor = `B1=${p[0]}  B2=${p[1]}  P1=${p[2]}  P2=${p[3]}`;
+        return `<div class="stack-item${topClass}"><span class="idx">${i}</span><span class="val">${valor}</span></div>`;
+      }).join('');
+
+      stackMovimentosEl.innerHTML = movimentos.map((m, i) => {
+        const topClass = i === movimentos.length - 1 ? ' top' : '';
+        return `<div class="stack-item${topClass}"><span class="idx">${i}</span><span class="val">${m}</span></div>`;
+      }).join('');
+    }
+
     function renderStep() {
       const passo = passos[passoAtual];
       renderBoardBase();
@@ -366,6 +496,7 @@
         `Linha 3: ${passo.estado.casa7} ${passo.estado.casa8} ${passo.estado.casa9}`
       ].join('<br>');
       renderAnalise(passo);
+      renderPilhas(passo);
 
       atualizarControles();
     }

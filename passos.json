@@ -30,7 +30,18 @@
         ],
         "movimentosPossiveis": [],
         "movimentoEscolhido": null
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial"
+      ]
     },
     {
       "indice": 1,
@@ -76,7 +87,25 @@
         "conexoesAnalisadas": [
           6
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)"
+      ]
     },
     {
       "indice": 2,
@@ -122,7 +151,32 @@
         "conexoesAnalisadas": [
           8
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          8,
+          7,
+          9
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)",
+        "Mover Branco 2 (B2) da casa 3 para a casa 8 (Horário)"
+      ]
     },
     {
       "indice": 3,
@@ -168,7 +222,39 @@
         "conexoesAnalisadas": [
           1
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          8,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          7,
+          9
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)",
+        "Mover Branco 2 (B2) da casa 3 para a casa 8 (Horário)",
+        "Mover Branco 2 (B2) da casa 8 para a casa 1 (Horário)"
+      ]
     },
     {
       "indice": 4,
@@ -214,7 +300,46 @@
         "conexoesAnalisadas": [
           2
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          8,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          2,
+          9
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)",
+        "Mover Branco 2 (B2) da casa 3 para a casa 8 (Horário)",
+        "Mover Branco 2 (B2) da casa 8 para a casa 1 (Horário)",
+        "Mover Preto 1 (P1) da casa 7 para a casa 2 (Horário)"
+      ]
     },
     {
       "indice": 5,
@@ -260,7 +385,53 @@
         "conexoesAnalisadas": [
           7
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          8,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          1,
+          2,
+          9
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)",
+        "Mover Branco 2 (B2) da casa 3 para a casa 8 (Horário)",
+        "Mover Branco 2 (B2) da casa 8 para a casa 1 (Horário)",
+        "Mover Preto 1 (P1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 1 (B1) da casa 6 para a casa 7 (Horário)"
+      ]
     },
     {
       "indice": 6,
@@ -306,7 +477,60 @@
         "conexoesAnalisadas": [
           6
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          8,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          9
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)",
+        "Mover Branco 2 (B2) da casa 3 para a casa 8 (Horário)",
+        "Mover Branco 2 (B2) da casa 8 para a casa 1 (Horário)",
+        "Mover Preto 1 (P1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 1 (B1) da casa 6 para a casa 7 (Horário)",
+        "Mover Branco 2 (B2) da casa 1 para a casa 6 (Horário)"
+      ]
     },
     {
       "indice": 7,
@@ -352,7 +576,67 @@
         "conexoesAnalisadas": [
           4
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          8,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          4
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)",
+        "Mover Branco 2 (B2) da casa 3 para a casa 8 (Horário)",
+        "Mover Branco 2 (B2) da casa 8 para a casa 1 (Horário)",
+        "Mover Preto 1 (P1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 1 (B1) da casa 6 para a casa 7 (Horário)",
+        "Mover Branco 2 (B2) da casa 1 para a casa 6 (Horário)",
+        "Mover Preto 2 (P2) da casa 9 para a casa 4 (Horário)"
+      ]
     },
     {
       "indice": 8,
@@ -398,7 +682,74 @@
         "conexoesAnalisadas": [
           9
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          8,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          4
+        ],
+        [
+          7,
+          6,
+          9,
+          4
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)",
+        "Mover Branco 2 (B2) da casa 3 para a casa 8 (Horário)",
+        "Mover Branco 2 (B2) da casa 8 para a casa 1 (Horário)",
+        "Mover Preto 1 (P1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 1 (B1) da casa 6 para a casa 7 (Horário)",
+        "Mover Branco 2 (B2) da casa 1 para a casa 6 (Horário)",
+        "Mover Preto 2 (P2) da casa 9 para a casa 4 (Horário)",
+        "Mover Preto 1 (P1) da casa 2 para a casa 9 (Horário)"
+      ]
     },
     {
       "indice": 9,
@@ -444,7 +795,81 @@
         "conexoesAnalisadas": [
           2
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          8,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          4
+        ],
+        [
+          7,
+          6,
+          9,
+          4
+        ],
+        [
+          2,
+          6,
+          9,
+          4
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)",
+        "Mover Branco 2 (B2) da casa 3 para a casa 8 (Horário)",
+        "Mover Branco 2 (B2) da casa 8 para a casa 1 (Horário)",
+        "Mover Preto 1 (P1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 1 (B1) da casa 6 para a casa 7 (Horário)",
+        "Mover Branco 2 (B2) da casa 1 para a casa 6 (Horário)",
+        "Mover Preto 2 (P2) da casa 9 para a casa 4 (Horário)",
+        "Mover Preto 1 (P1) da casa 2 para a casa 9 (Horário)",
+        "Mover Branco 1 (B1) da casa 7 para a casa 2 (Horário)"
+      ]
     },
     {
       "indice": 10,
@@ -490,7 +915,88 @@
         "conexoesAnalisadas": [
           7
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          8,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          4
+        ],
+        [
+          7,
+          6,
+          9,
+          4
+        ],
+        [
+          2,
+          6,
+          9,
+          4
+        ],
+        [
+          2,
+          7,
+          9,
+          4
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)",
+        "Mover Branco 2 (B2) da casa 3 para a casa 8 (Horário)",
+        "Mover Branco 2 (B2) da casa 8 para a casa 1 (Horário)",
+        "Mover Preto 1 (P1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 1 (B1) da casa 6 para a casa 7 (Horário)",
+        "Mover Branco 2 (B2) da casa 1 para a casa 6 (Horário)",
+        "Mover Preto 2 (P2) da casa 9 para a casa 4 (Horário)",
+        "Mover Preto 1 (P1) da casa 2 para a casa 9 (Horário)",
+        "Mover Branco 1 (B1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 2 (B2) da casa 6 para a casa 7 (Horário)"
+      ]
     },
     {
       "indice": 11,
@@ -536,7 +1042,95 @@
         "conexoesAnalisadas": [
           3
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          8,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          4
+        ],
+        [
+          7,
+          6,
+          9,
+          4
+        ],
+        [
+          2,
+          6,
+          9,
+          4
+        ],
+        [
+          2,
+          7,
+          9,
+          4
+        ],
+        [
+          2,
+          7,
+          9,
+          3
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)",
+        "Mover Branco 2 (B2) da casa 3 para a casa 8 (Horário)",
+        "Mover Branco 2 (B2) da casa 8 para a casa 1 (Horário)",
+        "Mover Preto 1 (P1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 1 (B1) da casa 6 para a casa 7 (Horário)",
+        "Mover Branco 2 (B2) da casa 1 para a casa 6 (Horário)",
+        "Mover Preto 2 (P2) da casa 9 para a casa 4 (Horário)",
+        "Mover Preto 1 (P1) da casa 2 para a casa 9 (Horário)",
+        "Mover Branco 1 (B1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 2 (B2) da casa 6 para a casa 7 (Horário)",
+        "Mover Preto 2 (P2) da casa 4 para a casa 3 (Horário)"
+      ]
     },
     {
       "indice": 12,
@@ -582,7 +1176,102 @@
         "conexoesAnalisadas": [
           4
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          8,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          4
+        ],
+        [
+          7,
+          6,
+          9,
+          4
+        ],
+        [
+          2,
+          6,
+          9,
+          4
+        ],
+        [
+          2,
+          7,
+          9,
+          4
+        ],
+        [
+          2,
+          7,
+          9,
+          3
+        ],
+        [
+          2,
+          7,
+          4,
+          3
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)",
+        "Mover Branco 2 (B2) da casa 3 para a casa 8 (Horário)",
+        "Mover Branco 2 (B2) da casa 8 para a casa 1 (Horário)",
+        "Mover Preto 1 (P1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 1 (B1) da casa 6 para a casa 7 (Horário)",
+        "Mover Branco 2 (B2) da casa 1 para a casa 6 (Horário)",
+        "Mover Preto 2 (P2) da casa 9 para a casa 4 (Horário)",
+        "Mover Preto 1 (P1) da casa 2 para a casa 9 (Horário)",
+        "Mover Branco 1 (B1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 2 (B2) da casa 6 para a casa 7 (Horário)",
+        "Mover Preto 2 (P2) da casa 4 para a casa 3 (Horário)",
+        "Mover Preto 1 (P1) da casa 9 para a casa 4 (Horário)"
+      ]
     },
     {
       "indice": 13,
@@ -628,7 +1317,109 @@
         "conexoesAnalisadas": [
           9
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          8,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          4
+        ],
+        [
+          7,
+          6,
+          9,
+          4
+        ],
+        [
+          2,
+          6,
+          9,
+          4
+        ],
+        [
+          2,
+          7,
+          9,
+          4
+        ],
+        [
+          2,
+          7,
+          9,
+          3
+        ],
+        [
+          2,
+          7,
+          4,
+          3
+        ],
+        [
+          9,
+          7,
+          4,
+          3
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)",
+        "Mover Branco 2 (B2) da casa 3 para a casa 8 (Horário)",
+        "Mover Branco 2 (B2) da casa 8 para a casa 1 (Horário)",
+        "Mover Preto 1 (P1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 1 (B1) da casa 6 para a casa 7 (Horário)",
+        "Mover Branco 2 (B2) da casa 1 para a casa 6 (Horário)",
+        "Mover Preto 2 (P2) da casa 9 para a casa 4 (Horário)",
+        "Mover Preto 1 (P1) da casa 2 para a casa 9 (Horário)",
+        "Mover Branco 1 (B1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 2 (B2) da casa 6 para a casa 7 (Horário)",
+        "Mover Preto 2 (P2) da casa 4 para a casa 3 (Horário)",
+        "Mover Preto 1 (P1) da casa 9 para a casa 4 (Horário)",
+        "Mover Branco 1 (B1) da casa 2 para a casa 9 (Horário)"
+      ]
     },
     {
       "indice": 14,
@@ -674,7 +1465,116 @@
         "conexoesAnalisadas": [
           8
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          8,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          4
+        ],
+        [
+          7,
+          6,
+          9,
+          4
+        ],
+        [
+          2,
+          6,
+          9,
+          4
+        ],
+        [
+          2,
+          7,
+          9,
+          4
+        ],
+        [
+          2,
+          7,
+          9,
+          3
+        ],
+        [
+          2,
+          7,
+          4,
+          3
+        ],
+        [
+          9,
+          7,
+          4,
+          3
+        ],
+        [
+          9,
+          7,
+          4,
+          8
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)",
+        "Mover Branco 2 (B2) da casa 3 para a casa 8 (Horário)",
+        "Mover Branco 2 (B2) da casa 8 para a casa 1 (Horário)",
+        "Mover Preto 1 (P1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 1 (B1) da casa 6 para a casa 7 (Horário)",
+        "Mover Branco 2 (B2) da casa 1 para a casa 6 (Horário)",
+        "Mover Preto 2 (P2) da casa 9 para a casa 4 (Horário)",
+        "Mover Preto 1 (P1) da casa 2 para a casa 9 (Horário)",
+        "Mover Branco 1 (B1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 2 (B2) da casa 6 para a casa 7 (Horário)",
+        "Mover Preto 2 (P2) da casa 4 para a casa 3 (Horário)",
+        "Mover Preto 1 (P1) da casa 9 para a casa 4 (Horário)",
+        "Mover Branco 1 (B1) da casa 2 para a casa 9 (Horário)",
+        "Mover Preto 2 (P2) da casa 3 para a casa 8 (Horário)"
+      ]
     },
     {
       "indice": 15,
@@ -720,7 +1620,123 @@
         "conexoesAnalisadas": [
           3
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          8,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          4
+        ],
+        [
+          7,
+          6,
+          9,
+          4
+        ],
+        [
+          2,
+          6,
+          9,
+          4
+        ],
+        [
+          2,
+          7,
+          9,
+          4
+        ],
+        [
+          2,
+          7,
+          9,
+          3
+        ],
+        [
+          2,
+          7,
+          4,
+          3
+        ],
+        [
+          9,
+          7,
+          4,
+          3
+        ],
+        [
+          9,
+          7,
+          4,
+          8
+        ],
+        [
+          9,
+          7,
+          3,
+          8
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)",
+        "Mover Branco 2 (B2) da casa 3 para a casa 8 (Horário)",
+        "Mover Branco 2 (B2) da casa 8 para a casa 1 (Horário)",
+        "Mover Preto 1 (P1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 1 (B1) da casa 6 para a casa 7 (Horário)",
+        "Mover Branco 2 (B2) da casa 1 para a casa 6 (Horário)",
+        "Mover Preto 2 (P2) da casa 9 para a casa 4 (Horário)",
+        "Mover Preto 1 (P1) da casa 2 para a casa 9 (Horário)",
+        "Mover Branco 1 (B1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 2 (B2) da casa 6 para a casa 7 (Horário)",
+        "Mover Preto 2 (P2) da casa 4 para a casa 3 (Horário)",
+        "Mover Preto 1 (P1) da casa 9 para a casa 4 (Horário)",
+        "Mover Branco 1 (B1) da casa 2 para a casa 9 (Horário)",
+        "Mover Preto 2 (P2) da casa 3 para a casa 8 (Horário)",
+        "Mover Preto 1 (P1) da casa 4 para a casa 3 (Horário)"
+      ]
     },
     {
       "indice": 16,
@@ -766,7 +1782,130 @@
         "conexoesAnalisadas": [
           1
         ]
-      }
+      },
+      "pilhaPosicoesDoCaminho": [
+        [
+          1,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          3,
+          7,
+          9
+        ],
+        [
+          6,
+          8,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          7,
+          9
+        ],
+        [
+          6,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          1,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          9
+        ],
+        [
+          7,
+          6,
+          2,
+          4
+        ],
+        [
+          7,
+          6,
+          9,
+          4
+        ],
+        [
+          2,
+          6,
+          9,
+          4
+        ],
+        [
+          2,
+          7,
+          9,
+          4
+        ],
+        [
+          2,
+          7,
+          9,
+          3
+        ],
+        [
+          2,
+          7,
+          4,
+          3
+        ],
+        [
+          9,
+          7,
+          4,
+          3
+        ],
+        [
+          9,
+          7,
+          4,
+          8
+        ],
+        [
+          9,
+          7,
+          3,
+          8
+        ],
+        [
+          9,
+          7,
+          3,
+          1
+        ]
+      ],
+      "pilhaMovimentosDoCaminho": [
+        "Estado Inicial",
+        "Mover Branco 1 (B1) da casa 1 para a casa 6 (Horário)",
+        "Mover Branco 2 (B2) da casa 3 para a casa 8 (Horário)",
+        "Mover Branco 2 (B2) da casa 8 para a casa 1 (Horário)",
+        "Mover Preto 1 (P1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 1 (B1) da casa 6 para a casa 7 (Horário)",
+        "Mover Branco 2 (B2) da casa 1 para a casa 6 (Horário)",
+        "Mover Preto 2 (P2) da casa 9 para a casa 4 (Horário)",
+        "Mover Preto 1 (P1) da casa 2 para a casa 9 (Horário)",
+        "Mover Branco 1 (B1) da casa 7 para a casa 2 (Horário)",
+        "Mover Branco 2 (B2) da casa 6 para a casa 7 (Horário)",
+        "Mover Preto 2 (P2) da casa 4 para a casa 3 (Horário)",
+        "Mover Preto 1 (P1) da casa 9 para a casa 4 (Horário)",
+        "Mover Branco 1 (B1) da casa 2 para a casa 9 (Horário)",
+        "Mover Preto 2 (P2) da casa 3 para a casa 8 (Horário)",
+        "Mover Preto 1 (P1) da casa 4 para a casa 3 (Horário)",
+        "Mover Preto 2 (P2) da casa 8 para a casa 1 (Horário)"
+      ]
     }
   ],
   "conexoes": {
@@ -796,5 +1935,5 @@
       4
     ]
   },
-  "codigoFonte": "# ==============================================================================\n# MODELAGEM DO PROBLEMA DOS 4 CAVALOS - RESTRIÇÃO: APENAS SENTIDO HORÁRIO\n# ==============================================================================\n\n# Grafo de transição com movimento ÚNICO por casa (Apenas Sentido Horário)\nCONEXAO_HORARIA = {\n    1: 6, 6: 7, 7: 2, 2: 9,\n    9: 4, 4: 3, 3: 8, 8: 1\n}\n\nPECAS = [\"Branco 1 (B1)\", \"Branco 2 (B2)\", \"Preto 1 (P1)\", \"Preto 2 (P2)\"]\n\n# Estado Inicial: [B1, B2, P1, P2]\nestado_inicial = [1, 3, 7, 9]\n\n# Pilhas para a solução efetiva\ncaminho_estados = [estado_inicial]\ncaminho_regras = [\"Estado Inicial\"]\n\n# Contadores de execução\ntotal_impasses = 0\ntotal_retrocessos = 0\n\n\ndef eh_objetivo(estado):\n    \"\"\"TESTE DE OBJETIVO: Brancos em {7, 9} e Pretos em {1, 3}\"\"\"\n    brancos = {estado[0], estado[1]}\n    pretos  = {estado[2], estado[3]}\n    return brancos == {7, 9} and pretos == {1, 3}\n\n\ndef busca_backtracking(estado_atual, limite_p=20):\n    global total_impasses, total_retrocessos\n\n    # 1. TESTE DE OBJETIVO\n    if eh_objetivo(estado_atual):\n        return True\n\n    # 2. IMPASSE POR PROFUNDIDADE (Limite p)\n    if len(caminho_estados) >= limite_p:\n        total_impasses += 1\n        return False\n\n    # 3. GERAÇÃO DE REGRAS (Apenas a próxima casa no sentido horário)\n    for i in range(4):\n        pos_atual = estado_atual[i]\n        prox_pos = CONEXAO_HORARIA[pos_atual]  # Destino único determinado pelo sentido horário\n\n        # Condição 1: Casa de destino VAZIA\n        if prox_pos not in estado_atual:\n            novo_estado = list(estado_atual)\n            novo_estado[i] = prox_pos\n\n            # Condição 2: CORTE DE CICLOS (evita repetição no caminho)\n            if novo_estado not in caminho_estados:\n                regra_aplicada = f\"Mover {PECAS[i]} da casa {pos_atual} para a casa {prox_pos} (Horário)\"\n\n                # --- AVANÇO ---\n                caminho_estados.append(novo_estado)\n                caminho_regras.append(regra_aplicada)\n\n                # Chamada Recursiva\n                if busca_backtracking(novo_estado, limite_p):\n                    return True\n\n                # --- RETROCESSO (BACKTRACKING EM IMPASSE) ---\n                caminho_estados.pop()\n                caminho_regras.pop()\n                total_impasses += 1\n                total_retrocessos += 1\n\n    # 4. IMPASSE NATURAL (Sem jogadas válidas no nó atual)\n    return False\n\n\n# ==============================================================================\n# EXECUÇÃO E IMPRESSÃO DO RESUMO FINAL\n# ==============================================================================\nlimite_profundidade = 17\nsucesso = busca_backtracking(estado_inicial, limite_p=limite_profundidade)\n\nif __name__ == \"__main__\":\n    if sucesso:\n        print(\"=\" * 80)\n        print(\" RESUMO DA EXECUÇÃO - BACKTRACKING (REGRA RESTRITA: SENTIDO HORÁRIO)\")\n        print(\"=\" * 80)\n        print(f\" Total de impasses/erros encontrados : {total_impasses}\")\n        print(f\" Total de retrocessos (pop) realizados: {total_retrocessos}\")\n        print(f\" TOTAL DE PASSOS DA MELHOR SOLUÇÃO   : {len(caminho_estados) - 1}\")\n        print(\"=\" * 80 + \"\\n\")\n\n        print(\"CAMINHO FINAL DA SOLUÇÃO (PASSOS EFETIVOS LIMPOS):\")\n        print(\"-\" * 80)\n        for passo in range(len(caminho_estados)):\n            est = caminho_estados[passo]\n            regra = caminho_regras[passo]\n            if passo == 0:\n                print(f\"Passo {passo:02d} [INÍCIO]: {regra}\")\n            else:\n                print(f\"Passo {passo:02d} [REGRA] : {regra}\")\n            print(f\"         [ESTADO]: B1 na casa {est[0]} | B2 na casa {est[1]} | P1 na casa {est[2]} | P2 na casa {est[3]}\")\n            print(\"-\" * 80)\n    else:\n        print(f\"\\nNenhuma solução encontrada dentro do limite p={limite_profundidade} com a regra apenas horária.\")\n"
+  "codigoFonte": "# ==============================================================================\n# MODELAGEM DO PROBLEMA DOS 4 CAVALOS - RESTRIÇÃO: APENAS SENTIDO HORÁRIO\n# (versão com nomenclatura revisada para maior clareza)\n# ==============================================================================\n \n# Grafo de transição com movimento ÚNICO por casa (Apenas Sentido Horário)\n# Mapeia: casa atual -> única casa de destino permitida\nPROXIMA_CASA_HORARIO = {\n    1: 6, 6: 7, 7: 2, 2: 9,\n    9: 4, 4: 3, 3: 8, 8: 1\n}\n \nNOMES_PECAS = [\"Branco 1 (B1)\", \"Branco 2 (B2)\", \"Preto 1 (P1)\", \"Preto 2 (P2)\"]\n \n# Posições Iniciais: [B1, B2, P1, P2]\nposicoes_iniciais = [1, 3, 7, 9]\n \n# Pilhas para a solução efetiva\npilha_posicoes_do_caminho = [posicoes_iniciais]\npilha_movimentos_do_caminho = [\"Estado Inicial\"]\n \n# Contadores de execução\ntotal_becos_sem_saida = 0\ntotal_vezes_que_desfez_jogada = 0\n \n \ndef posicoes_sao_solucao(posicoes):\n    \"\"\"TESTE DE OBJETIVO: Brancos em {7, 9} e Pretos em {1, 3}\"\"\"\n    casas_das_brancas = {posicoes[0], posicoes[1]}\n    casas_das_pretas = {posicoes[2], posicoes[3]}\n    return casas_das_brancas == {7, 9} and casas_das_pretas == {1, 3}\n \n \ndef buscar_solucao(posicoes_atuais, profundidade_maxima=20):\n    global total_becos_sem_saida, total_vezes_que_desfez_jogada\n \n    # 1. TESTE DE OBJETIVO\n    if posicoes_sao_solucao(posicoes_atuais):\n        return True\n \n    # 2. IMPASSE POR PROFUNDIDADE (Limite)\n    if len(pilha_posicoes_do_caminho) >= profundidade_maxima:\n        total_becos_sem_saida += 1\n        return False\n \n    # 3. GERAÇÃO DE MOVIMENTOS (Apenas a próxima casa no sentido horário)\n    for indice_peca in range(4):\n        casa_de_origem = posicoes_atuais[indice_peca]\n        casa_de_destino = PROXIMA_CASA_HORARIO[casa_de_origem]  # destino único, sentido horário\n \n        # Condição 1: Casa de destino VAZIA\n        if casa_de_destino not in posicoes_atuais:\n            posicoes_apos_mover = list(posicoes_atuais)\n            posicoes_apos_mover[indice_peca] = casa_de_destino\n  \n            # Condição 2: CORTE DE CICLOS (evita repetição no caminho)\n            if posicoes_apos_mover not in pilha_posicoes_do_caminho:\n                descricao_do_movimento = (\n                    f\"Mover {NOMES_PECAS[indice_peca]} da casa {casa_de_origem} \"\n                    f\"para a casa {casa_de_destino} (Horário)\"\n                )\n \n                # --- AVANÇO ---\n                pilha_posicoes_do_caminho.append(posicoes_apos_mover)\n                pilha_movimentos_do_caminho.append(descricao_do_movimento)\n \n                # Chamada Recursiva\n                if buscar_solucao(posicoes_apos_mover, profundidade_maxima):\n                    return True\n \n                # --- RETROCESSO (DESFAZ O MOVIMENTO EM IMPASSE) ---\n                pilha_posicoes_do_caminho.pop()\n                pilha_movimentos_do_caminho.pop()\n                total_becos_sem_saida += 1\n                total_vezes_que_desfez_jogada += 1\n \n    # 4. IMPASSE NATURAL (Sem jogadas válidas no nó atual)\n    return False\n \n \n# ==============================================================================\n# EXECUÇÃO E IMPRESSÃO DO RESUMO FINAL\n# ==============================================================================\nprofundidade_maxima_permitida = 17\nsolucao_encontrada = buscar_solucao(posicoes_iniciais, profundidade_maxima=profundidade_maxima_permitida)\n \nif __name__ == \"__main__\":\n    if solucao_encontrada:\n        print(\"=\" * 80)\n        print(\" RESUMO DA EXECUÇÃO - BACKTRACKING (REGRA RESTRITA: SENTIDO HORÁRIO)\")\n        print(\"=\" * 80)\n        print(f\" Total de becos sem saída encontrados : {total_becos_sem_saida}\")\n        print(f\" Total de vezes que desfez uma jogada : {total_vezes_que_desfez_jogada}\")\n        print(f\" TOTAL DE PASSOS DA MELHOR SOLUÇÃO    : {len(pilha_posicoes_do_caminho) - 1}\")\n        print(\"=\" * 80 + \"\\n\")\n \n        print(\"CAMINHO FINAL DA SOLUÇÃO (PASSOS EFETIVOS LIMPOS):\")\n        print(\"-\" * 80)\n        for passo in range(len(pilha_posicoes_do_caminho)):\n            posicoes = pilha_posicoes_do_caminho[passo]\n            movimento = pilha_movimentos_do_caminho[passo]\n            if passo == 0:\n                print(f\"Passo {passo:02d} [INÍCIO]: {movimento}\")\n            else:\n                print(f\"Passo {passo:02d} [REGRA] : {movimento}\")\n            print(f\"         [ESTADO]: B1 na casa {posicoes[0]} | B2 na casa {posicoes[1]} \"\n                  f\"| P1 na casa {posicoes[2]} | P2 na casa {posicoes[3]}\")\n            print(\"-\" * 80)\n    else:\n        print(f\"\\nNenhuma solução encontrada dentro do limite p={profundidade_maxima_permitida} \"\n              f\"com a regra apenas horária.\")"
 }

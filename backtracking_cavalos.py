@@ -9,7 +9,7 @@ CODIGO_FONTE = (ROOT / "backtracking.py").read_text(encoding="utf-8")
 
 # Casa -> [próxima casa] (apenas sentido horário: um único destino por origem)
 ADJ = {casa: [] for casa in range(1, 10)}
-for origem, destino in bt.CONEXAO_HORARIA.items():
+for origem, destino in bt.PROXIMA_CASA_HORARIO.items():
     ADJ[origem].append(destino)
 
 
@@ -25,14 +25,14 @@ def estado_para_letras(estado):
 
 
 def gerar_passos():
-    if not bt.sucesso:
+    if not bt.solucao_encontrada:
         raise RuntimeError(
-            f"Nenhuma solução encontrada dentro do limite p={bt.limite_profundidade} "
+            f"Nenhuma solução encontrada dentro do limite p={bt.profundidade_maxima_permitida} "
             "com a regra apenas horária."
         )
 
-    caminho = bt.caminho_estados
-    regras = bt.caminho_regras
+    caminho = bt.pilha_posicoes_do_caminho
+    regras = bt.pilha_movimentos_do_caminho
     passos = []
 
     for indice, estado in enumerate(caminho):
@@ -43,7 +43,7 @@ def gerar_passos():
             descricao = (
                 "Estado inicial do tabuleiro. Para cada peça, o algoritmo só considera o único "
                 "movimento permitido no sentido horário do ciclo (limite de profundidade "
-                f"p = {bt.limite_profundidade}), evitando revisitar estados do próprio caminho."
+                f"p = {bt.profundidade_maxima_permitida}), evitando revisitar estados do próprio caminho."
             )
             analise = {
                 "estadoAnterior": None,
@@ -88,6 +88,10 @@ def gerar_passos():
             "movimento": movimento,
             "descricao": descricao,
             "analise": analise,
+            # Conteúdo literal das duas pilhas do algoritmo (backtracking.py),
+            # tal como estão em memória logo após este passo ser empilhado.
+            "pilhaPosicoesDoCaminho": [list(e) for e in caminho[: indice + 1]],
+            "pilhaMovimentosDoCaminho": list(regras[: indice + 1]),
         })
 
     return passos
@@ -100,8 +104,8 @@ def gerar_passos_json():
         "titulo": "Visualizador de Backtracking do Tabuleiro 3x3",
         "totalPassos": len(passos),
         "solucaoEmMovimentos": len(passos) - 1,
-        "voltasBacktrack": bt.total_retrocessos,
-        "totalImpasses": bt.total_impasses,
+        "voltasBacktrack": bt.total_vezes_que_desfez_jogada,
+        "totalImpasses": bt.total_becos_sem_saida,
         "passos": passos,
         "conexoes": {str(origem): destinos for origem, destinos in ADJ.items()},
         "codigoFonte": CODIGO_FONTE,
