@@ -40,7 +40,6 @@ def buscar_solucao(posicoes_atuais, profundidade_maxima=20):
  
     # 2. IMPASSE POR PROFUNDIDADE (Limite)
     if len(pilha_posicoes_do_caminho) >= profundidade_maxima:
-        total_becos_sem_saida += 1
         return False
  
     # 3. GERAÇÃO DE MOVIMENTOS (Apenas a próxima casa no sentido horário)

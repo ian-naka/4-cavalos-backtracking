@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Problema dos 4 Cavalos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    /* identidade autoral: ébano/marfim (peças) + latão e granada (acentos) */
+    --ink:#221e1a;          /* ébano — peça preta, fundo escuro, texto principal */
+    --ink-2:#342c25;        /* ébano secundário — profundidade do gradiente escuro */
+    --ink-soft:#6b6357;     /* texto secundário, tom terroso */
+    --paper:#f6f0e4;        /* marfim — fundo de página, peça branca */
+    --sand:#ece3d0;         /* marfim mais denso — seções de destaque */
+    --gold:#b8863f;         /* latão — acento primário */
+    --gold-soft:#d9b97a;    /* latão claro — acento sobre fundo escuro */
+    --teal:#7a2f3d;         /* granada — acento secundário */
+    --teal-soft:#c9899a;    /* granada claro — sobre fundo escuro */
+    --line:#ddd2b8;         /* linha/borda, tom marfim envelhecido */
+    --on-dark:#f6f0e4;      /* texto sobre fundo escuro = marfim */
+    --on-dark-muted:#c9bfa8;/* texto secundário sobre fundo escuro */
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:"Fraunces",Georgia,serif;text-wrap:balance;margin:0}
+  code,.mono,.tabnum{font-family:"IBM Plex Mono",ui-monospace,monospace}
+  .tabnum{font-variant-numeric:tabular-nums}
+
+  .deck{
+    position:fixed;inset:0;overflow-y:auto;
+    scroll-snap-type:y mandatory;
+    -webkit-overflow-scrolling:touch;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .deck{scroll-behavior:auto}
+  }
+  .slide{
+    min-height:100svh;
+    scroll-snap-align:start;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:clamp(28px,5vw,72px) clamp(22px,7vw,100px);
+    position:relative;
+  }
+  .slide.dark{background:linear-gradient(160deg,var(--ink),var(--ink-2) 75%);color:var(--on-dark)}
+  .slide.light{background:var(--paper);color:var(--ink)}
+  .slide.tint{background:var(--sand);color:var(--ink)}
+
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--gold);margin-bottom:14px;
+  }
+  .slide.dark .eyebrow{color:var(--on-dark-muted)}
+
+  h1{font-size:clamp(2.1rem,5vw,3.4rem);font-weight:700;line-height:1.05}
+  h2{font-size:clamp(1.5rem,3.4vw,2.15rem);font-weight:700;color:var(--ink);margin-bottom:.15em}
+  .slide.dark h2{color:var(--on-dark)}
+  .kicker{max-width:60ch;font-size:1.05rem;color:var(--gold);margin-top:10px}
+  .slide.dark .kicker{color:var(--on-dark-muted)}
+
+  .grid2{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,64px);align-items:center}
+  @media (max-width:760px){.grid2{grid-template-columns:1fr}}
+
+  ul.points{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-direction:column;gap:16px;max-width:62ch}
+  ul.points li{position:relative;padding-left:26px;line-height:1.55;font-size:1.02rem}
+  ul.points li::before{content:"";position:absolute;left:0;top:.55em;width:9px;height:9px;border-radius:2px;background:var(--gold);transform:rotate(45deg)}
+  .slide.dark ul.points li::before{background:var(--on-dark)}
+  ul.points b{color:var(--ink)}
+  .slide.dark ul.points b{color:var(--on-dark)}
+  ul.points .piece-w{color:var(--gold);font-weight:600}
+  ul.points .piece-b{color:var(--ink);font-weight:600}
+  .slide.dark ul.points .piece-b{color:var(--on-dark-muted)}
+
+  /* board — mesma construção do index.html (grid 3x3 colado, xadrez por (linha+coluna)%2,
+     borda única, glifo de cavalo + nome da peça), só com as cores da nossa paleta */
+  .board-wrap{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .board-label{font-family:"IBM Plex Mono",monospace;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+  .slide.dark .board-label{color:var(--on-dark-muted)}
+  .board{
+    display:grid;grid-template-columns:repeat(3,100px);grid-template-rows:repeat(3,100px);
+    border:2px solid var(--gold);box-shadow:0 4px 8px rgba(0,0,0,.1);background:var(--paper);
+  }
+  .cell{position:relative;display:flex;align-items:center;justify-content:center;width:100px;height:100px;font-size:64px;user-select:none}
+  .cell.light{background:var(--paper)}
+  .cell.dark-tint{background:var(--sand)}
+  .cell-label{position:absolute;top:6px;left:8px;font-size:12px;font-weight:700;color:rgba(0,0,0,.55)}
+  .piece{display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:700;line-height:1}
+  .piece-icon{line-height:1}
+  .piece-name{font-size:.22em;text-transform:lowercase;line-height:1}
+  .piece.white{color:var(--paper);
+    text-shadow:-1px -1px 0 var(--ink-soft),1px -1px 0 var(--ink-soft),-1px 1px 0 var(--ink-soft),1px 1px 0 var(--ink-soft)}
+  .piece.black{color:var(--ink)}
+
+  .arrow-down{font-size:1.4rem;color:var(--gold)}
+
+  /* code panel */
+  pre.code{
+    background:var(--ink);color:var(--on-dark-muted);border-radius:12px;padding:20px 22px;
+    font-family:"IBM Plex Mono",monospace;font-size:.86rem;line-height:1.6;overflow-x:auto;
+    box-shadow:0 1px 0 rgba(255,255,255,.05) inset;
+  }
+  pre.code .c1{color:var(--gold-soft)}
+  pre.code .c2{color:var(--on-dark)}
+
+  /* big numbers */
+  .numrow{display:flex;align-items:center;gap:clamp(18px,4vw,48px);flex-wrap:wrap;margin-top:8px}
+  .numcard{text-align:center}
+  .numcard .n{font-family:"Fraunces",serif;font-weight:700;font-size:clamp(3.2rem,9vw,5.2rem);line-height:1}
+  .numcard.gold .n{color:var(--gold)}
+  .numcard.teal .n{color:var(--teal)}
+  .numcard .cap{font-size:.86rem;color:var(--ink-soft);max-width:20ch;margin-top:6px}
+  .rel{font-family:"Fraunces",serif;font-size:2rem;color:var(--line)}
+
+  .statrow{display:flex;gap:clamp(16px,4vw,40px);flex-wrap:wrap;margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
+  .stat .v{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:1.3rem;color:var(--ink)}
+  .stat .l{font-size:.78rem;color:var(--ink-soft)}
+  .note{margin-top:22px;max-width:66ch;font-size:.98rem;line-height:1.6;color:var(--ink-soft);background:rgba(0,0,0,.03);border-left:3px solid var(--gold);padding:14px 18px;border-radius:0 8px 8px 0}
+
+  /* conclusion */
+  .conc-item{display:flex;gap:20px;align-items:flex-start;max-width:70ch}
+  .conc-num{flex:none;width:42px;height:42px;border-radius:50%;background:var(--on-dark);color:var(--gold);
+    display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono",monospace;font-weight:600}
+  .conc-item p{margin:0;line-height:1.6;font-size:1.02rem;color:var(--on-dark)}
+  .conc-item b{color:var(--on-dark)}
+
+  .caption{font-style:italic;font-size:.84rem;color:var(--ink-soft);margin-top:12px}
+  .slide.dark .caption{color:var(--on-dark-muted)}
+
+  footer.slidefoot{position:absolute;left:clamp(22px,7vw,100px);bottom:20px;font-size:.78rem;font-style:italic;color:var(--ink-soft)}
+  .slide.dark footer.slidefoot{color:var(--on-dark-muted)}
+
+  /* rail nav */
+  .rail{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:20}
+  .rail button{width:10px;height:10px;border-radius:50%;border:1px solid var(--gold);background:transparent;padding:0;cursor:pointer}
+  .rail button[aria-current="true"]{background:var(--gold)}
+  .counter{position:fixed;right:14px;bottom:16px;font-family:"IBM Plex Mono",monospace;font-size:.76rem;color:var(--ink-soft);background:var(--paper);padding:4px 8px;border-radius:6px;z-index:20;border:1px solid var(--line)}
+  .navhint{position:fixed;left:14px;bottom:16px;font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--ink-soft);z-index:20;opacity:.75}
+  @media (max-width:600px){.navhint{display:none}}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- 1. TITLE -->
+  <section class="slide dark" id="s1">
+    <div class="grid2">
+      <div>
+        <div class="eyebrow">Inteligência Artificial · Busca com Backtracking</div>
+        <h1>O problema dos 4 cavalos</h1>
+      </div>
+      <div class="board-wrap">
+        <div class="board" id="board-hero"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. O PROBLEMA -->
+  <section class="slide light" id="s2">
+    <div class="grid2">
+      <div>
+        <h2>O problema: troca de cavalos</h2>
+        <ul class="points">
+          <li>O tabuleiro tem <b>9 casas</b> numeradas de 1 a 9; a casa central (<b>5</b>) nunca é usada por nenhuma regra de movimento.</li>
+          <li>Peças <span class="piece-w">brancas (B1, B2)</span> começam nas casas <b>1</b> e <b>3</b>; peças <span class="piece-b">pretas (P1, P2)</span> começam nas casas <b>7</b> e <b>9</b>.</li>
+          <li>Objetivo (<code>posicoes_sao_solucao</code>): inverter completamente os lados — as brancas terminam em <b>{7, 9}</b> e as pretas em <b>{1, 3}</b>.</li>
+        </ul>
+      </div>
+      <div class="board-wrap">
+        <div class="board-label">estado inicial</div>
+        <div class="board" id="board-ini"></div>
+        <div class="arrow-down">↓</div>
+        <div class="board-label">objetivo</div>
+        <div class="board" id="board-obj"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. REPRESENTAÇÃO DO ESTADO -->
+  <section class="slide light" id="s3">
+    <div class="grid2">
+      <div>
+        <h2>Representação do estado</h2>
+        <pre class="code"><span class="c2">NOMES_PECAS</span> = [<span class="c1">"Branco 1 (B1)"</span>, <span class="c1">"Branco 2 (B2)"</span>,
+              <span class="c1">"Preto 1 (P1)"</span>, <span class="c1">"Preto 2 (P2)"</span>]
+
+<span class="c2">posicoes_iniciais</span> = [<span class="c1">1</span>, <span class="c1">3</span>, <span class="c1">7</span>, <span class="c1">9</span>]  <span class="c1"># posições de B1, B2, P1, P2</span></pre>
+        <ul class="points" style="margin-top:20px">
+          <li>As posições são uma <b>lista de 4 valores</b>.</li>
+          <li><code>posicoes_sao_solucao</code> confere se <code>{posicoes[0], posicoes[1]} == {7, 9}</code> (brancas) e <code>{posicoes[2], posicoes[3]} == {1, 3}</code> (pretas).</li>
+          <li>Uma nova lista é gerada copiando a atual (<code>list(posicoes_atuais)</code>) e alterando apenas a posição da peça movida.</li>
+        </ul>
+      </div>
+      <div class="board-wrap">
+        <div class="board-label">numeração das casas</div>
+        <div class="board" id="board-num"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. REGRAS DE MOVIMENTO -->
+  <section class="slide tint" id="s4">
+    <div class="grid2">
+      <div>
+        <h2>As regras de movimento</h2>
+        <div class="caption" style="margin-top:0">PROXIMA_CASA_HORARIO — grafo de transição de sentido único</div>
+        <ul class="points" style="margin-top:22px">
+          <li><code>PROXIMA_CASA_HORARIO</code> é um dicionário <b>casa → única próxima casa</b> no sentido horário do ciclo externo do tabuleiro.</li>
+          <li>Cada peça tem, por definição, <b>exatamente 1 movimento candidato</b>: o destino é sempre <code>PROXIMA_CASA_HORARIO[casa_de_origem]</code>.</li>
+          <li>A regra só é aplicável se a casa de destino estiver <b>vazia</b> (<code>casa_de_destino not in posicoes_atuais</code>).</li>
+          <li><b>8 regras</b> no total — uma para cada casa do ciclo, todas no mesmo sentido.</li>
+        </ul>
+      </div>
+      <div class="board-wrap">
+        <svg viewBox="0 0 400 400" width="100%" style="max-width:380px" role="img" aria-label="Ciclo de movimento em sentido horário entre as 8 casas do anel">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#b8863f"/>
+            </marker>
+          </defs>
+          <circle cx="200" cy="200" r="30" fill="none" stroke="#ddd2b8" stroke-width="2" stroke-dasharray="4 5"/>
+          <text x="200" y="245" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#6b6357">5 · nunca usada</text>
+
+          <!-- edges, shortened toward each node's border, one direction only -->
+          <g stroke="#b8863f" stroke-width="2.5" marker-end="url(#arrow)" fill="none">
+            <line x1="200" y1="78" x2="288" y2="112"/>   <!-- 1 -> 6 -->
+            <line x1="322" y1="119" x2="337" y2="171"/>  <!-- 6 -> 7 -->
+            <line x1="343" y1="228" x2="322" y2="278"/>  <!-- 7 -> 2 -->
+            <line x1="288" y1="288" x2="216" y2="333"/>  <!-- 2 -> 9 -->
+            <line x1="184" y1="333" x2="112" y2="288"/>  <!-- 9 -> 4 -->
+            <line x1="78" y1="278" x2="57" y2="228"/>    <!-- 4 -> 3 -->
+            <line x1="63" y1="171" x2="78" y2="119"/>    <!-- 3 -> 8 -->
+            <line x1="112" y1="112" x2="184" y2="78"/>   <!-- 8 -> 1 -->
+          </g>
+
+          <!-- nodes -->
+          <g font-family="IBM Plex Sans, sans-serif" font-size="13" font-weight="600" text-anchor="middle">
+            <circle cx="200" cy="50" r="32" fill="#f6f0e4" stroke="#b8863f" stroke-width="2.5"/><text x="200" y="46" fill="#221e1a">1</text><text x="200" y="62" fill="#221e1a" font-size="11">B1</text>
+            <circle cx="306" cy="94" r="30" fill="#ece3d0" stroke="#ddd2b8" stroke-width="2"/><text x="306" y="99" fill="#6b6357">6</text>
+            <circle cx="350" cy="200" r="32" fill="#221e1a" stroke="#b8863f" stroke-width="2.5"/><text x="350" y="196" fill="#f6f0e4">7</text><text x="350" y="212" fill="#f6f0e4" font-size="11">P1</text>
+            <circle cx="306" cy="306" r="30" fill="#ece3d0" stroke="#ddd2b8" stroke-width="2"/><text x="306" y="311" fill="#6b6357">2</text>
+            <circle cx="200" cy="350" r="32" fill="#221e1a" stroke="#b8863f" stroke-width="2.5"/><text x="200" y="346" fill="#f6f0e4">9</text><text x="200" y="362" fill="#f6f0e4" font-size="11">P2</text>
+            <circle cx="94" cy="306" r="30" fill="#ece3d0" stroke="#ddd2b8" stroke-width="2"/><text x="94" y="311" fill="#6b6357">4</text>
+            <circle cx="50" cy="200" r="32" fill="#f6f0e4" stroke="#b8863f" stroke-width="2.5"/><text x="50" y="196" fill="#221e1a">3</text><text x="50" y="212" fill="#221e1a" font-size="11">B2</text>
+            <circle cx="94" cy="94" r="30" fill="#ece3d0" stroke="#ddd2b8" stroke-width="2"/><text x="94" y="99" fill="#6b6357">8</text>
+          </g>
+        </svg>
+        <div class="caption">Estado inicial sobre o ciclo — as setas indicam o único sentido permitido.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. LIMITE DE PROFUNDIDADE -->
+  <section class="slide light" id="s6">
+    <h2>O limite de profundidade (p)</h2>
+    <div class="numrow">
+      <div class="numcard gold"><div class="n tabnum">16</div><div class="cap">movimentos da solução ótima encontrada</div></div>
+      <div class="rel">→</div>
+      <div class="numcard teal"><div class="n tabnum">17</div><div class="cap"><code>profundidade_maxima_permitida</code> usado no código</div></div>
+    </div>
+    <div class="note">
+      <code>len(pilha_posicoes_do_caminho)</code> conta também as posições iniciais, então com <b>p = 17</b> a busca tem espaço para exatamente <b>16 movimentos</b> antes de declarar impasse — sem folga. Isso corresponde ao comprimento da solução ótima: mesmo com um único destino fixo por peça, a busca ainda precisa recuar sempre que uma casa de destino está ocupada ou o novo estado já apareceu no caminho.
+    </div>
+    <div class="statrow">
+      <div class="stat"><div class="v tabnum">9</div><div class="l">total de impasses</div></div>
+      <div class="stat"><div class="v tabnum">9</div><div class="l">total de retrocessos (pop)</div></div>
+      <div class="stat"><div class="v tabnum">17</div><div class="l">estados no caminho final</div></div>
+    </div>
+  </section>
+
+  <!-- 7. CONCLUSÃO -->
+  <section class="slide dark" id="s9" style="gap:36px">
+    <h2 style="color:var(--on-dark)">Conclusão</h2>
+    <div style="display:flex;flex-direction:column;gap:26px;margin-top:26px">
+      <div class="conc-item">
+        <div class="conc-num">1</div>
+        <p>Restringir o movimento a um único sentido (horário) reduz cada peça a <b>1 candidato de regra</b>, mas não elimina o backtracking: com <b>p = 17</b> ajustado quase ao ótimo, a busca ainda recuou (impasse = retrocesso) <b>9</b> vezes antes de achar os 16 movimentos corretos.</p>
+      </div>
+      <div class="conc-item">
+        <div class="conc-num">2</div>
+        <p>O <b>corte de ciclos</b> — não revisitar estados já presentes no caminho atual — é o que impede a busca de girar indefinidamente ao redor do anel de 8 casas.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<nav class="rail" id="rail" aria-label="Navegação de slides"></nav>
+<div class="counter" id="counter">01 / 09</div>
+<div class="navhint">↑ ↓ para navegar</div>
+
+<script>
+  // ---- board rendering (mesma lógica de index.html: casa -> linha/coluna -> xadrez) ----
+  function renderBoard(id, cells){
+    var el = document.getElementById(id);
+    el.innerHTML = '';
+    [1,2,3,4,5,6,7,8,9].forEach(function(casa){
+      var row = Math.floor((casa - 1) / 3);
+      var col = (casa - 1) % 3;
+      var cell = document.createElement('div');
+      cell.className = 'cell ' + ((row + col) % 2 === 0 ? 'light' : 'dark-tint');
+      cell.innerHTML = '<div class="cell-label">' + casa + '</div>';
+
+      var info = cells[casa];
+      if(info){
+        var piece = document.createElement('div');
+        piece.className = 'piece ' + (info.t === 'B' ? 'white' : 'black');
+        var icon = document.createElement('div');
+        icon.className = 'piece-icon';
+        icon.textContent = info.t === 'B' ? '♘' : '♞';
+        var name = document.createElement('div');
+        name.className = 'piece-name';
+        name.textContent = info.label;
+        piece.appendChild(icon);
+        piece.appendChild(name);
+        cell.appendChild(piece);
+      }
+      el.appendChild(cell);
+    });
+  }
+
+  // estado inicial: B1@1, B2@3, P1@7, P2@9
+  renderBoard('board-ini', {
+    1:{t:'B',label:'branco 1'}, 3:{t:'B',label:'branco 2'}, 7:{t:'P',label:'preto 1'}, 9:{t:'P',label:'preto 2'}
+  });
+  // estado objetivo (real, final do backtracking): B1@9, B2@7, P1@3, P2@1
+  var objetivo = {9:{t:'B',label:'branco 1'}, 7:{t:'B',label:'branco 2'}, 3:{t:'P',label:'preto 1'}, 1:{t:'P',label:'preto 2'}};
+  renderBoard('board-obj', objetivo);
+  renderBoard('board-hero', objetivo);
+  renderBoard('board-num', {});
+
+  // ---- rail nav ----
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var deck = document.getElementById('deck');
+  var rail = document.getElementById('rail');
+  var counter = document.getElementById('counter');
+  var total = slides.length;
+
+  slides.forEach(function(s, i){
+    var b = document.createElement('button');
+    b.setAttribute('aria-label', 'Ir para slide ' + (i+1));
+    b.addEventListener('click', function(){ s.scrollIntoView({behavior:'smooth', block:'start'}); });
+    rail.appendChild(b);
+  });
+  var dots = Array.prototype.slice.call(rail.children);
+
+  function setActive(i){
+    dots.forEach(function(d, j){ d.setAttribute('aria-current', j === i ? 'true' : 'false'); });
+    counter.textContent = String(i+1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        setActive(slides.indexOf(e.target));
+      }
+    });
+  }, {root: deck, threshold: 0.6});
+  slides.forEach(function(s){ io.observe(s); });
+  setActive(0);
+
+  window.addEventListener('keydown', function(ev){
+    var cur = slides.findIndex(function(s){
+      var r = s.getBoundingClientRect();
+      return r.top >= -10 && r.top < window.innerHeight * 0.5;
+    });
+    if(cur === -1) cur = 0;
+    if(['ArrowDown','ArrowRight','PageDown',' '].indexOf(ev.key) !== -1){
+      ev.preventDefault();
+      var next = slides[Math.min(cur+1, total-1)];
+      next.scrollIntoView({behavior:'smooth', block:'start'});
+    } else if(['ArrowUp','ArrowLeft','PageUp'].indexOf(ev.key) !== -1){
+      ev.preventDefault();
+      var prev = slides[Math.max(cur-1, 0)];
+      prev.scrollIntoView({behavior:'smooth', block:'start'});
+    } else if(ev.key === 'Home'){
+      ev.preventDefault(); slides[0].scrollIntoView({behavior:'smooth'});
+    } else if(ev.key === 'End'){
+      ev.preventDefault(); slides[total-1].scrollIntoView({behavior:'smooth'});
+    }
+  });
+</script>
+</body>
+</html>
